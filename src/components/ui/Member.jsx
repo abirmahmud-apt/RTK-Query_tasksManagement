@@ -1,15 +1,15 @@
 import { Avatar } from '@mui/material'
 import React from 'react'
-
-export default function Member() {
+export default function Member({info}) {
+  const img = info?.avatar
   return (
     <div className='flex items-center gap-2 ml-2 my-2'>
         <Avatar 
-        alt="Remy Sharp" 
+        alt={info?.name} 
         sx={{ width: 35, height: 35 }}
-        src={'https://tse3.mm.bing.net/th?id=OIP.FP8wuR2w9ZKyLz8Xjfg8-gHaLH&pid=Api&P=0&h=220'} />
+        src={img} />
 
-        <h2 className='font-semibold text-gray-600'>Abir Mahmud</h2>
+        <h2 className='font-semibold text-gray-600'>{info?.name}</h2>
     </div>
   )
 }

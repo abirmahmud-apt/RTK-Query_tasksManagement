@@ -2,21 +2,25 @@ import { Box, Button, MenuItem, Skeleton, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useGetProjectsQuery } from '../features/project/projectApi'
 import { useGetTeamMembersQuery } from '../features/team/teamApi'
-import { useAddTaskMutation } from '../features/task/taskApi'
+import { useEditTaskMutation } from '../features/task/taskApi'
 import { useNavigate } from 'react-router-dom'
 
-export default function AddTask() {
-    const [taskName, setTaskName] = useState('')
-    const [projectName, setProjectName] = useState('')
-    const [member, setMember] = useState('')
-    const [date, setDate] = useState('')
+export default function EditForm({task}) {
+
+    const {taskName: eTaskName, teamMember: eTeamMember, project: eProject, deadline: eDeadline} = task || {}
+
+    const [taskName, setTaskName] = useState(eTaskName)
+    const [projectName, setProjectName] = useState(eProject?.projectName)
+    const [member, setMember] = useState(eTeamMember?.name)
+    const [date, setDate] = useState(eDeadline)
+
     const [teamMember, setTeamMember] = useState({})
     const [project, setProject] = useState({})
     const navigate = useNavigate()
 
+    const [editTask] = useEditTaskMutation()
     const {data: projects, isLoading: projectIsLoading, isError: projectIsError} = useGetProjectsQuery()
     const {data: members, isLoading: membersIsLoading, isError: membersIsError} = useGetTeamMembersQuery()
-    const [addTask] = useAddTaskMutation()
     
     useEffect(() =>{
         if(projects?.length>0 && members?.length>0){
@@ -62,7 +66,6 @@ export default function AddTask() {
     sx={{ m: 1, width: '40ch' }}
     size='small'
 >
-    {/*  */}
     {
         members.map(member => <MenuItem key={member.id} value={member?.name}>{member?.name}</MenuItem>)
     }
@@ -70,11 +73,15 @@ export default function AddTask() {
 
     const handleSubmit = (e) =>{
         e.preventDefault()
-        addTask({
-            taskName: taskName,
-            teamMember,
-            project,
-            deadline:date
+        editTask({
+            id:task?.id,
+            data: {
+                taskName,
+                teamMember,
+                project,
+                id:task.id,
+                deadline:date
+            }
         })
         navigate('/')
     }
@@ -82,7 +89,7 @@ export default function AddTask() {
   return (
     <div className='flex items-center justify-center' style={{height:"calc(100vh - 64px)"}}>
         <form className='w-5/12' onSubmit={handleSubmit}>
-            <h2 className='text-center text-4xl font-bold text-gray-700 my-8'>Create Task for Your Team</h2>
+            <h2 className='text-center text-4xl font-bold text-gray-700 my-8'>Edit Task for Your Team</h2>
             {/* TASK NAME */}
             <div className='flex items-center justify-between'>
                 <h1 className='text-lg font-bold text-gray-500'>Task Name:</h1>
@@ -123,7 +130,7 @@ export default function AddTask() {
                 />
             </div>
             <div className='text-end my-3'>
-                <Button sx={{width: '30ch'}} type='submit' variant='contained'>Add</Button>
+                <Button sx={{width: '30ch'}} type='submit' variant='contained'>Save</Button>
             </div>
         </form>
     </div>

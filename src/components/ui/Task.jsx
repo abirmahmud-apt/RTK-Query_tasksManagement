@@ -1,36 +1,68 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Member from './Member'
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import { Button, MenuItem, TextField } from '@mui/material';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useDeleteTaskMutation, useEditTaskMutation } from '../../features/task/taskApi';
 
-export default function Task() {
+export default function Task({task}) {
+    const [status, setStatus] = useState('pending')
+    const [editTask] = useEditTaskMutation()
+    const [deleteTask] = useDeleteTaskMutation()
+
+    let color;
+    if(task?.project?.projectName === 'Scoreboard') color = 'rgb(25, 118, 210)'
+    if(task?.project?.projectName === 'Flight Booking') color = 'rgb(156, 39, 176)'
+    if(task?.project?.projectName === 'Product Cart') color = 'rgb(211, 47, 47)'
+    if(task?.project?.projectName === 'Book Store') color = 'rgb(2, 136, 209)'
+    if(task?.project?.projectName === 'Blog Application') color = 'rgb(46, 125, 50)'
+    if(task?.project?.projectName === 'Job Finder') color =  'rgb(237, 108, 2)'
+
+    useEffect(() => {
+        if(status !== 'pending'){
+            editTask({
+                id:task?.id,
+                data: {
+                    ...task,
+                    status
+                }
+            })
+        }
+    }, [status, task, editTask])
+
+    const handleDelete = () =>{
+        deleteTask(task.id)
+    }
   return (
-    <div className='border rounded flex justify-between items-center h-16 my-3 mr-2'>
+    <div className='border rounded flex justify-between items-center h-16 my-3 mr-2' style={{borderColor: color}}>
         <div className='flex gap-3 items-center'>
 
-            <div className='bg-slate-400 h-16 rounded-l w-14 text-xl text-white flex items-center px-2 text-center font-bold'>{moment("2023-10-05", "YYYYMMDD").fromNow()}</div>
+            <div className='h-16 rounded-l text-white flex items-center justify-center font-bold' style={{width:'100px', background: color}}>{moment(task?.deadline, "YYYYMMDD").fromNow()}</div>
 
-            <div className='text-lg font-semibold'>Last over need 15 runs</div>
-            <div className='text-sm border border-violet-500 px-2 rounded-full text-violet-500'>Scoreboard</div>
+            <div className='text-lg font-semibold'>{task?.taskName}</div>
+
+            <div className='text-sm border px-2 rounded-full' style={{borderColor:color, color: color}}>{task?.project?.projectName}</div>
         </div>
         <div className='flex gap-1 items-center'>
-            <Member/>
+            <Member info={task?.teamMember}/>
             
-            <Link to={`/edit/1`}><Button><DriveFileRenameOutlineIcon/></Button></Link>
+            {task?.status !== 'completed' && <Link to={`/edit/${task.id}`}><Button sx={{color: color}}><DriveFileRenameOutlineIcon/></Button></Link>}
+            {task?.status === 'completed' && <Button onClick={handleDelete} sx={{color: color}}><DeleteIcon/></Button>}
 
             <TextField
                 id="outlined-select-currency"
                 select
-                label="Select"
-                // defaultValue="hello"
-                sx={{ m: 1, width: '15ch' }}
+                defaultValue={task.status ? task.status : status}
+                // value={status}
+                onChange={e => setStatus(e.target.value)}
+                sx={{ m: 1, width: '15ch'}}
                 size='small'
             >
-                <MenuItem value={'pending'}>Pending</MenuItem>
-                <MenuItem value={'process'}>Process</MenuItem>
-                <MenuItem value={'completed'}>Completed</MenuItem>
+                <MenuItem  value={'pending'}>Pending</MenuItem>
+                <MenuItem  value={'process'}>Process</MenuItem>
+                <MenuItem  value={'completed'}>Completed</MenuItem>
             </TextField>
         </div>
     </div>

@@ -3,17 +3,25 @@ import { apiSlice } from "../api/apiSlice";
 export const taskApi = apiSlice.injectEndpoints({
     endpoints: (builder) =>({
         getTasks: builder.query({
-            query: `/tasks?_sort=deadline&_order=desc`
+            query: () => `/tasks`
         }),
         getTask: builder.query({
-            query: (id) =>  `/tasks/id`
+            query: (id) =>  `/tasks/${id}`
         }),
         addTask: builder.mutation({
             query: (data) =>({
                 url: '/tasks',
                 method: "POST",
                 body: data
-            })
+            }),
+        
+        // async onQueryStarted({data}, {queryFulfilled, dispatch}){
+        //      dispatch(apiSlice.util.updateQueryData('getTasks', undefined, (draft) =>{
+        //         draft.push(data)
+        //     }))
+        // }
+
+
         }),
         editTask: builder.mutation({
             query: ({id, data}) => ({
