@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Member from './Member'
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import { Button, MenuItem, TextField } from '@mui/material';
@@ -19,12 +19,6 @@ export default function Task({task}) {
     if(task?.project?.projectName === 'Book Store') color = 'rgb(2, 136, 209)'
     if(task?.project?.projectName === 'Blog Application') color = 'rgb(46, 125, 50)'
     if(task?.project?.projectName === 'Job Finder') color =  'rgb(237, 108, 2)'
-
-    // useEffect(() => {
-    //     if(status !== ''){
-    //        
-    //     }
-    // }, [status, task, editTask])
 
     const handleStatus =() =>{
         if(task?.status !== status){
