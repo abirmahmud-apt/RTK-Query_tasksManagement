@@ -83,22 +83,7 @@
       },
       "deadline": "2023-03-15",
       "id": 1,
-      "status": "inProgress"
-    },
-    {
-      "taskName": "Task Two",
-      "teamMember": {
-        "name": "Akash Ahmed",
-        "avatar": "/images/avatars/akash.png",
-        "id": 3
-      },
-      "project": {
-        "id": 2,
-        "projectName": "Flight Booking",
-        "colorClass": "secondary"
-      },
-      "deadline": "2023-03-23",
-      "id": 2
+      "status": "pending"
     },
     {
       "taskName": "Task Three",
@@ -113,7 +98,8 @@
         "colorClass": "error"
       },
       "deadline": "2023-03-03",
-      "id": 3
+      "id": 3,
+      "status": ""
     },
     {
       "taskName": "New Task",
@@ -128,23 +114,8 @@
         "colorClass": "primary"
       },
       "deadline": "2023-03-11",
-      "id": 4
-    },
-    {
-      "taskName": "Fix a bug",
-      "teamMember": {
-        "name": "Md Salahuddin",
-        "avatar": "/images/avatars/salahuddin.png",
-        "id": 4
-      },
-      "deadline": "2023-03-18",
-      "project": {
-        "id": 4,
-        "projectName": "Book Store",
-        "colorClass": "info"
-      },
-      "id": 5,
-      "status": "completed"
+      "id": 4,
+      "status": ""
     }
   ]
 }

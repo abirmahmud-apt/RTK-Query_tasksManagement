@@ -7,7 +7,7 @@ import { useGetTasksQuery } from '../features/task/taskApi';
 import { useSelector } from 'react-redux';
 
 export default function TaskFiled({search}) {
-  const {data: tasks, isLoading, isError, error} = useGetTasksQuery()
+  const {data: tasks, isLoading, isError} = useGetTasksQuery()
   const {project}= useSelector(state => state)
 
   // WHAT TO RENDER

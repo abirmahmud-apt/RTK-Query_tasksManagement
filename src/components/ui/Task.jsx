@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useDeleteTaskMutation, useEditTaskMutation } from '../../features/task/taskApi';
 
 export default function Task({task}) {
-    const [status, setStatus] = useState(task.status ? task.status : 'pending')
+    const [status, setStatus] = useState(task.status ? task.status : 'Pending')
     const [editTask] = useEditTaskMutation()
     const [deleteTask] = useDeleteTaskMutation()
 
@@ -20,17 +20,23 @@ export default function Task({task}) {
     if(task?.project?.projectName === 'Blog Application') color = 'rgb(46, 125, 50)'
     if(task?.project?.projectName === 'Job Finder') color =  'rgb(237, 108, 2)'
 
-    useEffect(() => {
-        if(status !== 'pending'){
+    // useEffect(() => {
+    //     if(status !== ''){
+    //        
+    //     }
+    // }, [status, task, editTask])
+
+    const handleStatus =() =>{
+        if(task?.status !== status){
             editTask({
-                id:task?.id,
-                data: {
-                    ...task,
-                    status
-                }
-            })
+                    id:task?.id,
+                    data: {
+                        ...task,
+                        status
+                    }
+                })
         }
-    }, [status, task, editTask])
+    }
 
     const handleDelete = () =>{
         deleteTask(task.id)
@@ -39,7 +45,7 @@ export default function Task({task}) {
     <div className='border rounded flex justify-between items-center h-16 my-3 mr-2' style={{borderColor: color}}>
         <div className='flex gap-3 items-center'>
 
-            <div className='h-16 rounded-l text-white flex items-center justify-center font-bold' style={{width:'100px', background: color}}>{moment(task?.deadline, "YYYYMMDD").fromNow()}</div>
+            <div className='h-16 rounded-l text-white flex items-center justify-center text-center font-bold' style={{width:'100px', background: color}}>{moment(task?.deadline, "YYYYMMDD").fromNow()}</div>
 
             <div className='text-lg font-semibold'>{task?.taskName}</div>
 
@@ -54,9 +60,11 @@ export default function Task({task}) {
             <TextField
                 id="outlined-select-currency"
                 select
-                defaultValue={task.status ? task.status : status}
+                defaultValue={task.status ? task.status : 'pending'}
                 // value={status}
                 onChange={e => setStatus(e.target.value)}
+                onFocus={handleStatus}
+                onBlur={handleStatus}
                 sx={{ m: 1, width: '15ch'}}
                 size='small'
             >
