@@ -19,7 +19,7 @@ export default function TaskFiled({search}) {
       <Skeleton animation="wave" sx={{ height: 60}}/>
     </Box>
   </div>
-  if(!isLoading && isError) content = <div><Alert severity="error">{error?.data}</Alert></div>
+  if(!isLoading && isError) content = <div><Alert severity="error">There is an error</Alert></div>
   if(!isLoading && !isError && tasks?.length === 0) content = <div><Alert severity="info">No data found</Alert></div>
   if(!isLoading && !isError && tasks?.length >0) content = <>{
     tasks

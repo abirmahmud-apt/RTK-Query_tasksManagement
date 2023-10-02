@@ -34,46 +34,46 @@
   "team": [
     {
       "name": "Sumit Saha",
-      "avatar": "/server/images/avatars/sumit.png",
+      "avatar": "/images/avatars/sumit.png",
       "id": 1
     },
     {
       "name": "Saad Hasan",
-      "avatar": "/server/images/avatars/sadh.png",
+      "avatar": "/images/avatars/sadh.png",
       "id": 2
     },
     {
       "name": "Akash Ahmed",
-      "avatar": "/server/images/avatars/akash.png",
+      "avatar": "/images/avatars/akash.png",
       "id": 3
     },
     {
       "name": "Md Salahuddin",
-      "avatar": "/server/images/avatars/salahuddin.png",
+      "avatar": "/images/avatars/salahuddin.png",
       "id": 4
     },
     {
       "name": "Riyadh Hassan",
-      "avatar": "/server/images/avatars/riyadh.png",
+      "avatar": "/images/avatars/riyadh.png",
       "id": 5
     },
     {
       "name": "Ferdous Hassan",
-      "avatar": "/server/images/avatars/ferdous.png",
+      "avatar": "/images/avatars/ferdous.png",
       "id": 6
     },
     {
       "name": "Arif Almas",
-      "avatar": "/server/images/avatars/almas.png",
+      "avatar": "/images/avatars/almas.png",
       "id": 7
     }
   ],
   "tasks": [
     {
-      "taskName": "Testing Code",
+      "taskName": "Task One",
       "teamMember": {
         "name": "Saad Hasan",
-        "avatar": "/server/images/avatars/sadh.png",
+        "avatar": "/images/avatars/sadh.png",
         "id": 2
       },
       "project": {
@@ -81,57 +81,70 @@
         "projectName": "Scoreboard",
         "colorClass": "primary"
       },
-      "deadline": "2023-10-15",
+      "deadline": "2023-03-15",
       "id": 1,
-      "status": "completed"
+      "status": "inProgress"
     },
     {
-      "taskName": "Solving a Math",
+      "taskName": "Task Two",
+      "teamMember": {
+        "name": "Akash Ahmed",
+        "avatar": "/images/avatars/akash.png",
+        "id": 3
+      },
+      "project": {
+        "id": 2,
+        "projectName": "Flight Booking",
+        "colorClass": "secondary"
+      },
+      "deadline": "2023-03-23",
+      "id": 2
+    },
+    {
+      "taskName": "Task Three",
       "teamMember": {
         "name": "Sumit Saha",
-        "avatar": "/server/images/avatars/sumit.png",
+        "avatar": "/images/avatars/sumit.png",
         "id": 1
       },
       "project": {
-        "id": 6,
-        "projectName": "Job Finder",
-        "colorClass": "warning"
+        "id": 3,
+        "projectName": "Product Cart",
+        "colorClass": "error"
       },
-      "deadline": "2023-10-08",
-      "id": 3,
-      "status": "pending"
+      "deadline": "2023-03-03",
+      "id": 3
     },
     {
-      "taskName": "Add a Blog",
+      "taskName": "New Task",
       "teamMember": {
-        "name": "Md Salahuddin",
-        "avatar": "/server/images/avatars/salahuddin.png",
-        "id": 4
+        "name": "Sumit Saha",
+        "avatar": "/images/avatars/sumit.png",
+        "id": 1
       },
       "project": {
-        "id": 5,
-        "projectName": "Blog Application",
-        "colorClass": "success"
+        "id": 1,
+        "projectName": "Scoreboard",
+        "colorClass": "primary"
       },
-      "deadline": "2023-10-05",
-      "id": 4,
-      "status": "pending"
+      "deadline": "2023-03-11",
+      "id": 4
     },
     {
       "taskName": "Fix a bug",
       "teamMember": {
-        "name": "Arif Almas",
-        "avatar": "/server/images/avatars/almas.png",
-        "id": 7
+        "name": "Md Salahuddin",
+        "avatar": "/images/avatars/salahuddin.png",
+        "id": 4
       },
+      "deadline": "2023-03-18",
       "project": {
         "id": 4,
         "projectName": "Book Store",
         "colorClass": "info"
       },
-      "deadline": "2023-10-07",
       "id": 5,
-      "status": "pending"
+      "status": "completed"
     }
   ]
 }

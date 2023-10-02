@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useDeleteTaskMutation, useEditTaskMutation } from '../../features/task/taskApi';
 
 export default function Task({task}) {
-    const [status, setStatus] = useState('pending')
+    const [status, setStatus] = useState(task.status ? task.status : 'pending')
     const [editTask] = useEditTaskMutation()
     const [deleteTask] = useDeleteTaskMutation()
 
@@ -48,8 +48,8 @@ export default function Task({task}) {
         <div className='flex gap-1 items-center'>
             <Member info={task?.teamMember}/>
             
-            {task?.status !== 'completed' && <Link to={`/edit/${task.id}`}><Button sx={{color: color}}><DriveFileRenameOutlineIcon/></Button></Link>}
-            {task?.status === 'completed' && <Button onClick={handleDelete} sx={{color: color}}><DeleteIcon/></Button>}
+            {status !== 'completed' && <Link to={`/edit/${task.id}`}><Button sx={{color: color}}><DriveFileRenameOutlineIcon/></Button></Link>}
+            {status === 'completed' && <Button onClick={handleDelete} sx={{color: color}}><DeleteIcon/></Button>}
 
             <TextField
                 id="outlined-select-currency"

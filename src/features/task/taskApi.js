@@ -15,11 +15,16 @@ export const taskApi = apiSlice.injectEndpoints({
                 body: data
             }),
         
-        // async onQueryStarted({data}, {queryFulfilled, dispatch}){
-        //      dispatch(apiSlice.util.updateQueryData('getTasks', undefined, (draft) =>{
-        //         draft.push(data)
-        //     }))
-        // }
+        async onQueryStarted(arg, {queryFulfilled, dispatch}){
+            const pathResult = dispatch(apiSlice.util.updateQueryData('getTasks', undefined, (draft) =>{
+                draft.push(arg)
+            }))
+            try{
+                await queryFulfilled    
+            }catch(err){
+                pathResult.undo()
+            }
+        }
 
 
         }),
@@ -28,13 +33,39 @@ export const taskApi = apiSlice.injectEndpoints({
                 url: `/tasks/${id}`,
                 method: "PATCH",
                 body: data
-            })
+            }),
+            async onQueryStarted({id, data}, {queryFulfilled, dispatch}){
+                const pathResult = dispatch(apiSlice.util.updateQueryData('getTasks', undefined, (draft) => {
+                    const editedItem = draft.find(item => item.id === id)
+                    const index = draft.indexOf(editedItem)
+                    draft.splice(index, 1, data)
+                }))
+                try{
+                    await queryFulfilled
+                }catch(arr){
+                    pathResult.undo()
+                }
+            }
         }),
         deleteTask: builder.mutation({
             query: (id) =>({
                 url: `/tasks/${id}`,
                 method: "DELETE"
-            })
+            }),
+
+            async onQueryStarted(arg, {queryFulfilled, dispatch}){
+                const pathResult = dispatch(apiSlice.util.updateQueryData('getTasks', undefined, (draft) => {
+                    const deleteItem = draft.find(item => item.id === arg)
+                    const index = draft.indexOf(deleteItem)
+                    draft.splice(index, 1)
+                }))
+                try{
+                    await queryFulfilled
+                }
+                catch(err){
+                    pathResult.undo()
+                }
+            }
         })
     })
 })
